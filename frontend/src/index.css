@@ -37,6 +37,8 @@ body {
 
 .view:hover {
   border: 0.1rem #404040 solid;
+  color: #ffffff;
+  font-weight: bold;
 }
 
 .grid-container {
@@ -75,10 +77,11 @@ h2 {
 
 a {
   text-decoration: none;
+  color: #000000;
 }
-a:hover {
-  color: #ff8000;
-}
+/* a:hover {
+  
+} */
 
 input,
 select,
@@ -117,6 +120,7 @@ button.block {
 div.button-div {
   justify-content: flex-end;
   flex-direction: row !important;
+  margin: 2rem 1rem !important;
 }
 
 /* Header */

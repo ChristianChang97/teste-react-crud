@@ -1,5 +1,6 @@
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <main>
           <Routes>
             <Route exact path="/" element={<HomeScreen />}></Route>
+            <Route exact path="/cadastrar" element={<RegisterScreen />}></Route>
           </Routes>
         </main>
         <footer className="row center"></footer>
