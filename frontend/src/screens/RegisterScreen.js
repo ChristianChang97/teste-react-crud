@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export default function RegisterScreen() {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [cpf, setCpf] = useState("");
   const [nationality, setNationality] = useState("");
   const [cep, setCep] = useState("");
   const [stateAddress, setStateAddress] = useState("");
@@ -17,6 +18,7 @@ export default function RegisterScreen() {
     console.log(
       "Nome: " + name,
       "Sobrenome: " + lastName,
+      "CPF: " + cpf,
       "Nacionalidade: " + nationality,
       "CEP: " + cep,
       "Estado: " + stateAddress,
@@ -56,6 +58,16 @@ export default function RegisterScreen() {
               placeholder="Ex: da Silva"
               required
               onChange={(e) => setLastName(e.target.value)}
+            ></input>
+          </div>
+          <div style={{ margin: "0 1rem" }}>
+            <label htmlFor="cpf">CPF</label>
+            <input
+              type="text"
+              id="cpf"
+              placeholder="Ex: 234.922.375-42"
+              required
+              onChange={(e) => setCpf(e.target.value)}
             ></input>
           </div>
           <div style={{ marginLeft: "1rem" }}>
