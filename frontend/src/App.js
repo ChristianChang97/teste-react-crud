@@ -17,7 +17,7 @@ function App() {
         <main>
           <Routes>
             <Route exact path="/" element={<HomeScreen />}></Route>
-            <Route exact path="/cadastrar" element={<RegisterScreen />}></Route>
+            <Route exact path="/cadastro" element={<RegisterScreen />}></Route>
           </Routes>
         </main>
         <footer className="row center"></footer>

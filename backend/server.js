@@ -1,6 +1,11 @@
 import express from "express";
+import data from "./data.js";
 
 const app = express();
+
+app.get("/api/users", (req, res) => {
+  res.send(data.users);
+});
 
 app.get("/", (req, res) => {
   res.send("Server is ready");

@@ -75,6 +75,10 @@ h2 {
   padding: 1rem 0;
 }
 
+h2:hover {
+  color: #f0c040;
+}
+
 a {
   text-decoration: none;
   color: #000000;
@@ -182,4 +186,27 @@ a.brand {
 .form label {
   margin: 1rem 0;
   display: block;
+}
+
+/* Card */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 0.1rem #c0c0c0 solid;
+  background-color: #f8f8f8;
+  border-radius: 0.5rem;
+  margin: 1rem;
+  padding: 1rem;
+  width: 20rem;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-body > * {
+  margin-bottom: 0.5rem;
 }

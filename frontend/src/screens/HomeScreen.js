@@ -1,27 +1,28 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import User from "../components/User";
 
 export default function HomeScreen() {
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await axios.get("/api/users");
+      console.log(data);
+      setUsers(data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="container">
-      <Link to="#" className="view" style={{ backgroundColor: "#166fe5" }}>
-        CONSULTAR
-      </Link>
-      <Link to="#" className="view" style={{ backgroundColor: "#36a420" }}>
-        LISTAR
-      </Link>
-      <Link
-        to="/cadastrar"
-        className="view"
-        style={{ backgroundColor: "#FF6F00" }}
-      >
-        ADICIONAR
-      </Link>
-      <Link to="#" className="view" style={{ backgroundColor: "#f0c040" }}>
-        ALTERAR
-      </Link>
-      <Link to="#" className="view" style={{ backgroundColor: "#203040" }}>
-        EXCLUIR
-      </Link>
+      <div className="row center">
+        {users.map((user) => (
+          <User key={user._id} user={user}></User>
+        ))}
+      </div>
     </div>
   );
 }
