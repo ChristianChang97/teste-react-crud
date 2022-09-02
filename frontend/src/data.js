@@ -1,0 +1,51 @@
+const data = {
+  users: [
+    {
+      _id: "1",
+      name: "Christian",
+      lastName: "Chang",
+      nationality: "Brasileiro",
+      cep: "01011-100",
+      state: "SP",
+      city: "São Paulo",
+      street: "Rua Boa Vista",
+      email: "admin@example.com",
+      tel: "(11)2020-3030",
+    },
+    {
+      _id: "2",
+      name: "Johnnhy",
+      lastName: "Depp",
+      nationality: "Americano",
+      cep: "01500-100",
+      state: "CA",
+      city: "Los Angeles",
+      street: "Santa Monica Boulevard",
+      email: "depp@example.com",
+    },
+    {
+      _id: "3",
+      name: "Michael",
+      lastName: "Jordan",
+      nationality: "Americano",
+      cep: "01620-300",
+      state: "CA",
+      city: "Los Angeles",
+      street: "Santa Monica Boulevard",
+      email: "jordan@example.com",
+    },
+    {
+      _id: "4",
+      name: "Neymar",
+      lastName: "Junior",
+      nationality: "Brasileiro",
+      cep: "04500-100",
+      state: "SP",
+      city: "Santos",
+      street: "Rua Julia Santos Paiva",
+      email: "n10@example.com",
+    },
+  ],
+};
+
+export default data;

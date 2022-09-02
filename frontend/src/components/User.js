@@ -7,7 +7,7 @@ export default function User(props) {
 
   return (
     <div className="card">
-      <Link to="#">
+      <Link to={`/usuario/${user._id}`}>
         <FaUserAlt style={{ fontSize: "10rem" }} />
       </Link>
       <div className="card-body">

@@ -1,27 +1,33 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { listUsers } from "../actions/userActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
 import User from "../components/User";
 
 export default function HomeScreen() {
-  const [users, setUsers] = useState([]);
-  const [error, setError] = useState([]);
+  const dispatch = useDispatch();
+  const userList = useSelector((state) => state.userList);
+  const { loading, error, users } = userList;
 
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await axios.get("/api/users");
-      console.log(data);
-      setUsers(data);
-    };
-    fetchData();
-  }, []);
+    dispatch(listUsers());
+  }, [dispatch]);
 
   return (
     <div className="container">
       <div className="row center">
-        {users.map((user) => (
-          <User key={user._id} user={user}></User>
-        ))}
+        {loading ? (
+          <LoadingBox></LoadingBox>
+        ) : error ? (
+          <MessageBox variant="danger">{error}</MessageBox>
+        ) : (
+          <div className="row center">
+            {users.map((user) => (
+              <User key={user._id} user={user}></User>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
