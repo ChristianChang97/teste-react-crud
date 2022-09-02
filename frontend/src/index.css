@@ -83,9 +83,16 @@ a {
   text-decoration: none;
   color: #000000;
 }
-/* a:hover {
-  
-} */
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+li {
+  margin-top: 1rem;
+}
 
 input,
 select,
@@ -101,7 +108,6 @@ button {
 }
 
 button {
-  background-color: #f8f8f8;
   cursor: pointer;
 }
 
@@ -117,6 +123,21 @@ button.primary {
 button.secondary {
   background-color: #f0c040;
 }
+
+.update-button {
+  width: 20rem;
+  height: 6rem;
+  background-color: #f0c040;
+  margin: 1rem;
+}
+
+.delete-button {
+  width: 20rem;
+  height: 6rem;
+  background-color: #a02020;
+  margin: 1rem;
+}
+
 button.block {
   width: 100%;
 }

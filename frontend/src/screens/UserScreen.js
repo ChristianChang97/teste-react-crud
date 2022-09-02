@@ -1,193 +1,72 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { FaUserAlt } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { detailsUser } from "../actions/userActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
 
 export default function UserScreen() {
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [nationality, setNationality] = useState("");
-  const [cep, setCep] = useState("");
-  const [stateAddress, setStateAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [street, setStreet] = useState("");
-  const [email, setEmail] = useState("");
-  const [telephone, setTelephone] = useState("");
+  const { id } = useParams();
+  const userDetails = useSelector((state) => state.userDetails);
+  const dispatch = useDispatch();
+  const { loading, error, user } = userDetails;
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    console.log(
-      "Nome: " + name,
-      "Sobrenome: " + lastName,
-      "CPF: " + cpf,
-      "Nacionalidade: " + nationality,
-      "CEP: " + cep,
-      "Estado: " + stateAddress,
-      "Cidade: " + city,
-      "Logradouro: " + street,
-      "E-mail: " + email,
-      "Tel: " + telephone
-    );
-  };
-
-  function handleStateTypeChange(e) {
-    setStateAddress(e.target.value);
-  }
+  useEffect(() => {
+    dispatch(detailsUser(id));
+  }, [dispatch, id]);
 
   return (
-    <div>
-      <form className="form" onSubmit={submitHandler}>
-        <div>
-          <h1>Cadastro</h1>
-        </div>
-        <div>
-          <label htmlFor="name">Nome</label>
-          <input
-            type="text"
-            id="name"
-            placeholder="Ex: João"
-            required
-            onChange={(e) => setName(e.target.value)}
-          ></input>
-        </div>
-        <div className="form row">
-          <div style={{ marginRight: "1rem" }}>
-            <label htmlFor="lastName">Sobrenome</label>
-            <input
-              type="text"
-              id="lastName"
-              placeholder="Ex: da Silva"
-              required
-              onChange={(e) => setLastName(e.target.value)}
-            ></input>
-          </div>
-          <div style={{ margin: "0 1rem" }}>
-            <label htmlFor="cpf">CPF</label>
-            <input
-              type="text"
-              id="cpf"
-              placeholder="Ex: 234.922.375-42"
-              required
-              onChange={(e) => setCpf(e.target.value)}
-            ></input>
-          </div>
-          <div style={{ marginLeft: "1rem" }}>
-            <label htmlFor="nationality">Nacionalidade</label>
-            <input
-              type="text"
-              id="nationality"
-              placeholder="Ex: brasileira"
-              required
-              onChange={(e) => setNationality(e.target.value)}
-            ></input>
-          </div>
-        </div>
-        <div className="form row">
-          <div style={{ marginRight: "1rem" }}>
-            <label htmlFor="cep">CEP</label>
-            <input
-              type="text"
-              id="cep"
-              placeholder="Ex: 01011-100"
-              required
-              onChange={(e) => setCep(e.target.value)}
-            ></input>
-          </div>
-          <div style={{ margin: "0 1rem" }}>
-            <label htmlFor="state">Estado</label>
-            <select
-              id="estado"
-              name="estado"
-              onChange={(e) => handleStateTypeChange(e)}
+    <div style={{ height: "100%" }}>
+      {loading ? (
+        <LoadingBox></LoadingBox>
+      ) : error ? (
+        <MessageBox variant="danger">{error}</MessageBox>
+      ) : (
+        <div style={{ height: "100%" }}>
+          <Link to="/">Voltar para o início</Link>
+          <div className="row top" style={{ height: "100%" }}>
+            <div className="col-2" style={{ marginTop: "1.5rem" }}>
+              <FaUserAlt style={{ fontSize: "15rem" }} />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "60rem",
+                height: "90%",
+                backgroundColor: "#f8f8f8",
+              }}
             >
-              <option value="AC">Acre</option>
-              <option value="AL">Alagoas</option>
-              <option value="AP">Amapá</option>
-              <option value="AM">Amazonas</option>
-              <option value="BA">Bahia</option>
-              <option value="CE">Ceará</option>
-              <option value="DF">Distrito Federal</option>
-              <option value="ES">Espírito Santo</option>
-              <option value="GO">Goiás</option>
-              <option value="MA">Maranhão</option>
-              <option value="MT">Mato Grosso</option>
-              <option value="MS">Mato Grosso do Sul</option>
-              <option value="MG">Minas Gerais</option>
-              <option value="PA">Pará</option>
-              <option value="PB">Paraíba</option>
-              <option value="PR">Paraná</option>
-              <option value="PE">Pernambuco</option>
-              <option value="PI">Piauí</option>
-              <option value="RJ">Rio de Janeiro</option>
-              <option value="RN">Rio Grande do Norte</option>
-              <option value="RS">Rio Grande do Sul</option>
-              <option value="RO">Rondônia</option>
-              <option value="RR">Roraima</option>
-              <option value="SC">Santa Catarina</option>
-              <option value="SP">São Paulo</option>
-              <option value="SE">Sergipe</option>
-              <option value="TO">Tocantins</option>
-              <option value="EX">Estrangeiro</option>
-            </select>
-          </div>
-          <div style={{ marginLeft: "1rem" }}>
-            <label htmlFor="city">Cidade</label>
-            <input
-              type="text"
-              id="city"
-              placeholder="Ex: São Paulo"
-              required
-              onChange={(e) => setCity(e.target.value)}
-            ></input>
+              <ul
+                style={{
+                  height: "80%",
+                  width: "80%",
+                }}
+              >
+                <li>
+                  <h1 style={{ textAlign: "start" }}>
+                    {user.name + " " + user.lastName}
+                  </h1>
+                </li>
+                <li>CPF: {user.cpf}</li>
+                <li>Nacionalidade: {user.nationality}</li>
+                <li>CEP: {user.cep}</li>
+                <li>Estado: {user.state}</li>
+                <li>Cidade: {user.city}</li>
+                <li>Logradouro: {user.street}</li>
+                <li>E-mail: {user.email}</li>
+                <li>Tel: {user.tel}</li>
+              </ul>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <button className="update-button">Alterar</button>
+              <button className="delete-button">Deletar</button>
+            </div>
           </div>
         </div>
-        <div>
-          <label htmlFor="address">Logradouro</label>
-          <input
-            type="text"
-            id="address"
-            placeholder="Ex: Rua Boa Vista 253"
-            required
-            onChange={(e) => setStreet(e.target.value)}
-          ></input>
-        </div>
-        <div className="form row">
-          <div style={{ marginRight: "1rem" }}>
-            <label htmlFor="lastName">E-mail</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Ex: email@gmail.com"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            ></input>
-          </div>
-          <div style={{ marginLeft: "1rem" }}>
-            <label htmlFor="tel">Telefone</label>
-            <input
-              type="tel"
-              id="tel"
-              placeholder="Ex: (11)2020-3030"
-              required
-              onChange={(e) => setTelephone(e.target.value)}
-            ></input>
-          </div>
-        </div>
-        <div className="button-div">
-          <label />
-          <button className="primary" type="submit">
-            Cadastre-se
-          </button>
-          <Link to="/">
-            <button
-              className="secondary"
-              type="submit"
-              style={{ marginLeft: "1rem" }}
-            >
-              Voltar
-            </button>
-          </Link>
-        </div>
-      </form>
+      )}
     </div>
   );
 }

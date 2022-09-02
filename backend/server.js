@@ -3,6 +3,15 @@ import data from "./data.js";
 
 const app = express();
 
+app.get("/api/users/:id", (req, res) => {
+  const user = data.users.find((x) => x._id === req.params.id);
+  if (user) {
+    res.send(user);
+  } else {
+    res.status(404).send({ message: "User not Found" });
+  }
+});
+
 app.get("/api/users", (req, res) => {
   res.send(data.users);
 });
