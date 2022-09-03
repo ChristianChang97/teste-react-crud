@@ -6,7 +6,54 @@ import {
   USER_LIST_FAIL,
   USER_LIST_REQUEST,
   USER_LIST_SUCCESS,
+  USER_REGISTER_FAIL,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
 } from "../constants/userConstants";
+
+export const register =
+  (name, lastName, cpf, nationality, cep, state, city, street, email, tel) =>
+  async (dispatch) => {
+    dispatch({
+      type: USER_REGISTER_REQUEST,
+      payload: {
+        name,
+        lastName,
+        cpf,
+        nationality,
+        cep,
+        state,
+        city,
+        street,
+        email,
+        tel,
+      },
+    });
+    try {
+      const { data } = await Axios.post("/api/users/register", {
+        name,
+        lastName,
+        cpf,
+        nationality,
+        cep,
+        state,
+        city,
+        street,
+        email,
+        tel,
+      });
+      dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {
+      dispatch({
+        type: USER_REGISTER_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const listUsers = () => async (dispatch) => {
   dispatch({

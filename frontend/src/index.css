@@ -120,6 +120,13 @@ button.secondary {
   background-color: #f0c040;
 }
 
+.add-button {
+  width: 20rem;
+  height: 8rem;
+  background-color: #166fe5;
+  margin: 1rem;
+}
+
 .update-button {
   width: 20rem;
   height: 6rem;

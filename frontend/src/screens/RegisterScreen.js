@@ -1,36 +1,41 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { register } from "../actions/userActions";
 
 export default function RegisterScreen() {
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [cpf, setCpf] = useState("");
   const [nationality, setNationality] = useState("");
   const [cep, setCep] = useState("");
-  const [stateAddress, setStateAddress] = useState("");
+  const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
   const [email, setEmail] = useState("");
-  const [telephone, setTelephone] = useState("");
+  const [tel, setTel] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(
-      "Nome: " + name,
-      "Sobrenome: " + lastName,
-      "CPF: " + cpf,
-      "Nacionalidade: " + nationality,
-      "CEP: " + cep,
-      "Estado: " + stateAddress,
-      "Cidade: " + city,
-      "Logradouro: " + street,
-      "E-mail: " + email,
-      "Tel: " + telephone
+    dispatch(
+      register(
+        name,
+        lastName,
+        cpf,
+        nationality,
+        cep,
+        state,
+        city,
+        street,
+        email,
+        tel
+      )
     );
   };
 
   function handleStateTypeChange(e) {
-    setStateAddress(e.target.value);
+    setState(e.target.value);
   }
 
   return (
@@ -168,7 +173,7 @@ export default function RegisterScreen() {
               id="tel"
               placeholder="Ex: (11)2020-3030"
               required
-              onChange={(e) => setTelephone(e.target.value)}
+              onChange={(e) => setTel(e.target.value)}
             ></input>
           </div>
         </div>

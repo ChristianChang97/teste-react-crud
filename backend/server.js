@@ -1,9 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
-import data from "./data.js";
+// import data from "./data.js";
 import userRouter from "./routers/userRouter.js";
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 mongoose.connect("mongodb://localhost/interviewTest", {
   useNewUrlParser: true,
   useUnifiedTopology: true,

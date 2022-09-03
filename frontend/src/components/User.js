@@ -6,15 +6,13 @@ export default function User(props) {
   const { user } = props;
 
   return (
-    <div className="card">
-      <Link to={`/usuario/${user._id}`}>
+    <Link to={`/usuario/${user._id}`}>
+      <div className="card">
         <FaUserAlt style={{ fontSize: "10rem" }} />
-      </Link>
-      <div className="card-body">
-        <Link to={`/usuario/${user._id}`}>
+        <div className="card-body">
           <h2>{user.name + " " + user.lastName}</h2>
-        </Link>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
