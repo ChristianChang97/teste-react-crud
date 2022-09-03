@@ -1,16 +1,22 @@
 import React, { useEffect } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteUser, detailsUser } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 
 export default function UserScreen() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const userDetails = useSelector((state) => state.userDetails);
   const dispatch = useDispatch();
   const { loading, error, user } = userDetails;
+
+  const routeChange = () => {
+    let path = "/";
+    navigate(path);
+  };
 
   useEffect(() => {
     dispatch(detailsUser(id));
@@ -18,6 +24,8 @@ export default function UserScreen() {
 
   const handleDeleteUser = () => {
     dispatch(deleteUser(id));
+    alert("Usuário Excluído com Sucesso!!");
+    routeChange();
   };
 
   return (

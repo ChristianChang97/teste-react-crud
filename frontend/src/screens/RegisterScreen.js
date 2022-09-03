@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "../actions/userActions";
 
 export default function RegisterScreen() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [cpf, setCpf] = useState("");
@@ -15,6 +16,11 @@ export default function RegisterScreen() {
   const [street, setStreet] = useState("");
   const [email, setEmail] = useState("");
   const [tel, setTel] = useState("");
+
+  const routeChange = () => {
+    let path = "/";
+    navigate(path);
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -32,6 +38,8 @@ export default function RegisterScreen() {
         tel
       )
     );
+    alert("Usuário cadastrado com Sucesso!");
+    routeChange();
   };
 
   function handleStateTypeChange(e) {
