@@ -11,7 +11,7 @@ export default function User(props) {
         <FaUserAlt style={{ fontSize: "10rem" }} />
       </Link>
       <div className="card-body">
-        <Link to="#">
+        <Link to={`/usuario/${user._id}`}>
           <h2>{user.name + " " + user.lastName}</h2>
         </Link>
       </div>

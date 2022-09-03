@@ -75,10 +75,6 @@ h2 {
   padding: 1rem 0;
 }
 
-h2:hover {
-  color: #f0c040;
-}
-
 a {
   text-decoration: none;
   color: #000000;
@@ -222,6 +218,10 @@ a.brand {
   margin: 1rem;
   padding: 1rem;
   width: 20rem;
+}
+
+.card:hover {
+  background-color: #f0c040;
 }
 
 .card-body {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listUsers } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";

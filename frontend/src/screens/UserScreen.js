@@ -26,7 +26,17 @@ export default function UserScreen() {
         <div style={{ height: "100%" }}>
           <Link to="/">Voltar para o início</Link>
           <div className="row top" style={{ height: "100%" }}>
-            <div className="col-2" style={{ marginTop: "1.5rem" }}>
+            <div
+              className="col-2"
+              style={{
+                marginTop: "1.5rem",
+                flex: "1",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "80%",
+              }}
+            >
               <FaUserAlt style={{ fontSize: "15rem" }} />
             </div>
             <div
@@ -60,7 +70,14 @@ export default function UserScreen() {
                 <li>Tel: {user.tel}</li>
               </ul>
             </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                flex: "1",
+                alignItems: "flex-end",
+              }}
+            >
               <button className="update-button">Alterar</button>
               <button className="delete-button">Deletar</button>
             </div>

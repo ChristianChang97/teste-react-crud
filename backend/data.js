@@ -1,7 +1,6 @@
 const data = {
   users: [
     {
-      _id: "1",
       name: "Christian",
       lastName: "Chang",
       cpf: "115.440.340-83",
@@ -14,7 +13,6 @@ const data = {
       tel: "(11)2020-3030",
     },
     {
-      _id: "2",
       name: "Johnnhy",
       lastName: "Depp",
       cpf: "353.814.620-93",
@@ -24,9 +22,9 @@ const data = {
       city: "Los Angeles",
       street: "Santa Monica Boulevard",
       email: "depp@example.com",
+      tel: "(11)2020-3030",
     },
     {
-      _id: "3",
       name: "Michael",
       lastName: "Jordan",
       cpf: "733.068.970-00",
@@ -36,9 +34,9 @@ const data = {
       city: "Los Angeles",
       street: "Santa Monica Boulevard",
       email: "jordan@example.com",
+      tel: "(11)2020-3030",
     },
     {
-      _id: "4",
       name: "Neymar",
       lastName: "Junior",
       cpf: "363.067.360-00",
@@ -48,6 +46,7 @@ const data = {
       city: "Santos",
       street: "Rua Julia Santos Paiva",
       email: "n10@example.com",
+      tel: "(11)2020-3030",
     },
   ],
 };
