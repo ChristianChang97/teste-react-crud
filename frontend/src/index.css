@@ -120,6 +120,10 @@ button.secondary {
   background-color: #f0c040;
 }
 
+button.update {
+  background-color: #166fe5;
+}
+
 .add-button {
   width: 20rem;
   height: 8rem;
@@ -267,4 +271,9 @@ a.brand {
 .alert-danger {
   color: #a02020;
   background-color: #ffe0e0e0;
+}
+
+.alert-success {
+  color: #ffffff;
+  background-color: #20a020;
 }

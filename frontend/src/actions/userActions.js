@@ -12,6 +12,9 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_UPDATE_FAIL,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
 } from "../constants/userConstants";
 
 export const register =
@@ -89,6 +92,21 @@ export const detailsUser = (id) => async (dispatch) => {
           ? error.response.data.message
           : error.message,
     });
+  }
+};
+
+export const updateUserProfile = (user) => async (dispatch, getState) => {
+  dispatch({ type: USER_UPDATE_REQUEST, payload: user });
+  try {
+    const { data } = await Axios.put(`/api/users/profile`, user);
+    dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
+    localStorage.setItem("userInfo", JSON.stringify(data));
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: USER_UPDATE_FAIL, payload: message });
   }
 };
 

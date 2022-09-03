@@ -65,6 +65,38 @@ userRouter.post(
   })
 );
 
+userRouter.put(
+  "/profile",
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.body.userId);
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.lastName = req.body.lastName || user.lastName;
+      user.cpf = req.body.cpf || user.cpf;
+      user.nationality = req.body.nationality || user.nationality;
+      user.cep = req.body.cep || user.cep;
+      user.state = req.body.state || user.state;
+      user.city = req.body.city || user.city;
+      user.street = req.body.street || user.street;
+      user.email = req.body.email || user.email;
+      user.tel = req.body.tel || user.tel;
+    }
+    const updatedUser = await user.save();
+    res.send({
+      name: updatedUser.name,
+      lastName: updatedUser.lastName,
+      cpf: updatedUser.cpf,
+      nationality: updatedUser.nationality,
+      cep: updatedUser.cep,
+      state: updatedUser.state,
+      city: updatedUser.city,
+      street: updatedUser.street,
+      email: updatedUser.email,
+      tel: updatedUser.tel,
+    });
+  })
+);
+
 userRouter.delete(
   "/delete/:id",
   expressAsyncHandler(async (req, res) => {

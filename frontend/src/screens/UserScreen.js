@@ -28,6 +28,10 @@ export default function UserScreen() {
     routeChange();
   };
 
+  const redirectToUpdateScreen = () => {
+    navigate(`/alteracao-usuario/${id}`);
+  };
+
   return (
     <div style={{ height: "100%" }}>
       {loading ? (
@@ -90,7 +94,12 @@ export default function UserScreen() {
                 alignItems: "flex-end",
               }}
             >
-              <button className="update-button">Alterar</button>
+              <button
+                className="update-button"
+                onClick={redirectToUpdateScreen}
+              >
+                Alterar
+              </button>
               <button className="delete-button" onClick={handleDeleteUser}>
                 Deletar
               </button>
