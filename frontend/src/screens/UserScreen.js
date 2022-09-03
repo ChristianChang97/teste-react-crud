@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { detailsUser } from "../actions/userActions";
+import { deleteUser, detailsUser } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 
@@ -15,6 +15,10 @@ export default function UserScreen() {
   useEffect(() => {
     dispatch(detailsUser(id));
   }, [dispatch, id]);
+
+  const handleDeleteUser = () => {
+    dispatch(deleteUser(id));
+  };
 
   return (
     <div style={{ height: "100%" }}>
@@ -79,7 +83,9 @@ export default function UserScreen() {
               }}
             >
               <button className="update-button">Alterar</button>
-              <button className="delete-button">Deletar</button>
+              <button className="delete-button" onClick={handleDeleteUser}>
+                Deletar
+              </button>
             </div>
           </div>
         </div>

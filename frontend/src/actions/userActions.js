@@ -1,5 +1,8 @@
 import Axios from "axios";
 import {
+  USER_DELETE_FAIL,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -81,6 +84,28 @@ export const detailsUser = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const deleteUser = (id) => async (dispatch) => {
+  dispatch({
+    type: USER_DELETE_REQUEST,
+    payload: id,
+  });
+  try {
+    await Axios.delete(`/api/users/delete/${id}`);
+    dispatch({
+      type: USER_DELETE_SUCCESS,
+      payload: id,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_DELETE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
