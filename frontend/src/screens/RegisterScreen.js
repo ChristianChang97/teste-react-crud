@@ -2,20 +2,26 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../actions/userActions";
+import MessageBox from "../components/MessageBox";
 
 export default function RegisterScreen() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [nationality, setNationality] = useState("");
-  const [cep, setCep] = useState("");
-  const [state, setState] = useState("");
-  const [city, setCity] = useState("");
-  const [street, setStreet] = useState("");
-  const [email, setEmail] = useState("");
-  const [tel, setTel] = useState("");
+  const initialValues = {
+    name: "",
+    lastName: "",
+    cpf: "",
+    nationality: "",
+    cep: "",
+    state: "",
+    city: "",
+    street: "",
+    email: "",
+    tel: "",
+  };
+  const [formValues, setFormValues] = useState(initialValues);
+  const [formErrors, setFormErrors] = useState({});
+  const [isStateEmpty, setIsStateEmpty] = useState(false);
 
   const routeChange = () => {
     let path = "/";
@@ -24,30 +30,85 @@ export default function RegisterScreen() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      register(
-        name,
-        lastName,
-        cpf,
-        nationality,
-        cep,
-        state,
-        city,
-        street,
-        email,
-        tel
-      )
-    );
-    alert("Usuário cadastrado com Sucesso!");
-    routeChange();
+    setFormErrors(validate(formValues));
+    const formErrorsIsEmpty = Object.keys(formErrors).length === 0;
+    if (formErrorsIsEmpty && formValues.state) {
+      dispatch(
+        register(
+          formValues.name,
+          formValues.lastName,
+          formValues.cpf,
+          formValues.nationality,
+          formValues.cep,
+          formValues.state,
+          formValues.city,
+          formValues.street,
+          formValues.email,
+          formValues.tel
+        )
+      );
+      alert("Usuário cadastrado com Sucesso!");
+      routeChange();
+    } else {
+      setIsStateEmpty(true);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
+
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.name) {
+      errors.name = "É obrigatório preencher este campo!";
+    }
+    if (!values.lastName) {
+      errors.lastName = "É obrigatório preencher este campo!";
+    }
+    if (!values.cpf) {
+      errors.cpf = "É obrigatório preencher este campo!";
+    }
+    if (!values.nationality) {
+      errors.nationality = "É obrigatório preencher este campo!";
+    }
+    if (!values.cep) {
+      errors.cep = "É obrigatório preencher este campo!";
+    }
+    if (!values.state) {
+      errors.state = "É obrigatório selecionar o Estado";
+    }
+    if (!values.city) {
+      errors.city = "É obrigatório preencher este campo!";
+    }
+    if (!values.street) {
+      errors.street = "É obrigatório preencher este campo!";
+    }
+    if (!values.email) {
+      errors.email = "É necessário preencher o campo de email!";
+    } else if (!regex.test(values.email)) {
+      errors.email = "O email não está correto!";
+    }
+    if (!values.tel) {
+      errors.tel = "É obrigatório preencher este campo!";
+    }
+    return errors;
   };
 
   function handleStateTypeChange(e) {
-    setState(e.target.value);
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+    setIsStateEmpty(false);
   }
 
   return (
     <div>
+      {isStateEmpty && (
+        <MessageBox variant="danger">{formErrors.state}</MessageBox>
+      )}
+      <pre>{JSON.stringify(formValues, undefined, 2)}</pre>
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Cadastro</h1>
@@ -56,10 +117,12 @@ export default function RegisterScreen() {
           <label htmlFor="name">Nome</label>
           <input
             type="text"
+            name="name"
             id="name"
             placeholder="Ex: João"
             required
-            onChange={(e) => setName(e.target.value)}
+            value={formValues.name}
+            onChange={handleChange}
           ></input>
         </div>
         <div className="form row">
@@ -68,9 +131,11 @@ export default function RegisterScreen() {
             <input
               type="text"
               id="lastName"
+              name="lastName"
               placeholder="Ex: da Silva"
               required
-              onChange={(e) => setLastName(e.target.value)}
+              value={formValues.lastName}
+              onChange={handleChange}
             ></input>
           </div>
           <div style={{ margin: "0 1rem" }}>
@@ -78,9 +143,11 @@ export default function RegisterScreen() {
             <input
               type="text"
               id="cpf"
+              name="cpf"
               placeholder="Ex: 234.922.375-42"
               required
-              onChange={(e) => setCpf(e.target.value)}
+              value={formValues.cpf}
+              onChange={handleChange}
             ></input>
           </div>
           <div style={{ marginLeft: "1rem" }}>
@@ -88,9 +155,11 @@ export default function RegisterScreen() {
             <input
               type="text"
               id="nationality"
+              name="nationality"
               placeholder="Ex: brasileira"
               required
-              onChange={(e) => setNationality(e.target.value)}
+              value={formValues.nationality}
+              onChange={handleChange}
             ></input>
           </div>
         </div>
@@ -100,16 +169,18 @@ export default function RegisterScreen() {
             <input
               type="text"
               id="cep"
+              name="cep"
               placeholder="Ex: 01011-100"
-              required
-              onChange={(e) => setCep(e.target.value)}
+              value={formValues.cep}
+              onChange={handleChange}
             ></input>
           </div>
           <div style={{ margin: "0 1rem" }}>
             <label htmlFor="state">Estado</label>
             <select
-              id="estado"
-              name="estado"
+              id="state"
+              name="state"
+              value={formValues.state}
               onChange={(e) => handleStateTypeChange(e)}
             >
               <option value="AC">Acre</option>
@@ -147,31 +218,37 @@ export default function RegisterScreen() {
             <input
               type="text"
               id="city"
+              name="city"
               placeholder="Ex: São Paulo"
               required
-              onChange={(e) => setCity(e.target.value)}
+              value={formValues.city}
+              onChange={handleChange}
             ></input>
           </div>
         </div>
         <div>
-          <label htmlFor="address">Logradouro</label>
+          <label htmlFor="street">Logradouro</label>
           <input
             type="text"
-            id="address"
+            id="street"
+            name="street"
             placeholder="Ex: Rua Boa Vista 253"
             required
-            onChange={(e) => setStreet(e.target.value)}
+            value={formValues.street}
+            onChange={handleChange}
           ></input>
         </div>
         <div className="form row">
           <div style={{ marginRight: "1rem" }}>
-            <label htmlFor="lastName">E-mail</label>
+            <label htmlFor="email">E-mail</label>
             <input
               type="email"
               id="email"
+              name="email"
               placeholder="Ex: email@gmail.com"
               required
-              onChange={(e) => setEmail(e.target.value)}
+              value={formValues.email}
+              onChange={handleChange}
             ></input>
           </div>
           <div style={{ marginLeft: "1rem" }}>
@@ -179,9 +256,11 @@ export default function RegisterScreen() {
             <input
               type="tel"
               id="tel"
+              name="tel"
               placeholder="Ex: (11)2020-3030"
               required
-              onChange={(e) => setTel(e.target.value)}
+              value={formValues.tel}
+              onChange={handleChange}
             ></input>
           </div>
         </div>
