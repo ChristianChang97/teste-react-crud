@@ -111,12 +111,28 @@ export default function RegisterScreen() {
     setIsStateEmpty(false);
   }
 
+  const checkCEP = (e) => {
+    const cep = e.target.value.replace(/\D/g, "");
+    if (cep.length === 8) {
+      fetch(`http://viacep.com.br/ws/${cep}/json/`)
+        .then((res) => res.json())
+        .then((data) => {
+          setFormValues({
+            ...formValues,
+            ["state"]: data.uf,
+            ["city"]: data.localidade,
+            ["street"]: data.logradouro,
+          });
+        });
+    }
+  };
+
   return (
     <div>
       {isStateEmpty && (
         <MessageBox variant="danger">{formErrors.state}</MessageBox>
       )}
-      <pre>{JSON.stringify(formValues, undefined, 2)}</pre>
+      {/* <pre>{JSON.stringify(formValues, undefined, 2)}</pre> */}
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Cadastro</h1>
@@ -180,6 +196,7 @@ export default function RegisterScreen() {
               value={formValues.cep}
               onChange={handleChange}
               name="cep"
+              onBlur={checkCEP}
               placeholder="Ex: 01011-100"
             />
           </div>
