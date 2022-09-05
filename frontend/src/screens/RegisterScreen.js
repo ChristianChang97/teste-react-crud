@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { register } from "../actions/userActions";
 import MessageBox from "../components/MessageBox";
 import { mask } from "../utils/cpfMask";
+import { cpf } from "cpf-cnpj-validator";
+import InputMask from "react-input-mask";
 
 export default function RegisterScreen() {
   const dispatch = useDispatch();
@@ -62,7 +64,7 @@ export default function RegisterScreen() {
 
   const handleChangeMask = (e) => {
     const { name, value } = e.target;
-    setFormValues({ cpf: mask(value) });
+    setFormValues({ ...formValues, [name]: mask(value) });
   };
 
   const validate = (values) => {
@@ -173,14 +175,13 @@ export default function RegisterScreen() {
         <div className="form row">
           <div style={{ marginRight: "1rem" }}>
             <label htmlFor="cep">CEP</label>
-            <input
-              type="text"
-              id="cep"
-              name="cep"
-              placeholder="Ex: 01011-100"
+            <InputMask
+              mask="99999-999"
               value={formValues.cep}
               onChange={handleChange}
-            ></input>
+              name="cep"
+              placeholder="Ex: 01011-100"
+            />
           </div>
           <div style={{ margin: "0 1rem" }}>
             <label htmlFor="state">Estado</label>
