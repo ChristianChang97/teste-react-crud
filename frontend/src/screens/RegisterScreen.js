@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../actions/userActions";
 import MessageBox from "../components/MessageBox";
+import { mask } from "../utils/cpfMask";
 
 export default function RegisterScreen() {
   const dispatch = useDispatch();
@@ -57,6 +58,11 @@ export default function RegisterScreen() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
+  };
+
+  const handleChangeMask = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ cpf: mask(value) });
   };
 
   const validate = (values) => {
@@ -147,7 +153,8 @@ export default function RegisterScreen() {
               placeholder="Ex: 234.922.375-42"
               required
               value={formValues.cpf}
-              onChange={handleChange}
+              maxLength="14"
+              onChange={handleChangeMask}
             ></input>
           </div>
           <div style={{ marginLeft: "1rem" }}>
